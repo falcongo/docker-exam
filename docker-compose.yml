@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    # Dockerfile이 있는 위치
+#    build: ./src/database
+    image: mysql:5.7
+    container_name: mysql-con
+    environment:
+      - MYSQL_USER=scott
+      - MYSQL_PASSWORD=scott
+      - MYSQL_ROOT_PASSWORD=mysql_scott
+      - MYSQL_DATABASE=test_docker_d
+      - TZ=Asia/Seoul
+    volumes:
+      - ./src/database/scripts:/docker-entrypoint-initdb.d
+    # 내부에서 개방할 포트 : 외부에서 접근할 포트
+    ports:
+      - '3306:3306'
+  app:
+    build: .
+    image: app-img
+    container_name: app-con
+    # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
+    volumes:
+      - ./:/home/web-app
+    # 환경변수 설정
+    environment:
+      - MYSQL_HOST=db
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
