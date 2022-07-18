@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const redisClient = require('../../loaders/redis');
 
 const setError = (message, status) => {
   const error = new Error(message);
@@ -8,6 +9,9 @@ const setError = (message, status) => {
 
 const getUsers = async () => {
   try {
+    const team = await redisClient.get('team');
+    console.log('Redis Get >>>>>>>> ', team);
+
     const users = await User.findAll();
 
     return users;
