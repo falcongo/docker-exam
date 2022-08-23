@@ -12,7 +12,8 @@ on:
     branches: [ "main" ]
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/app-img
+  ACTOR: $(echo 'console.log("${{ github.actor }}".toLowerCase())' | node -)
+  DOCKER_IMAGE: ghcr.io/${{ ACTOR }}/app-img
   VERSION: ${{ github.sha }}
   NAME: docker_cicd
 
@@ -22,12 +23,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: set lower case owner name
-        run: |
-          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: '${{ github.repository_owner }}'
-    
       - name: Checkout repository
         uses: actions/checkout@v3
 
