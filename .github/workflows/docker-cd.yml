@@ -82,5 +82,5 @@ jobs:
           #docker stop go_cicd && docker rm go_cicd && docker rmi ${{ env.IMAGE_NAME }}
           #docker ps -q --filter "name=go_cicd" | grep -q . && docker stop go_cicd && docker rm -fv go_cicd                      
           run:
-            docker run -d -p 3000:3000 --name go_cicd --restart always ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            docker run -d -p 3000:3000 --name go_cicd --restart always ghcr.io/falcongo/docker-exam
             
