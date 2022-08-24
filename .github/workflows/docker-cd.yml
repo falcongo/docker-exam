@@ -78,9 +78,9 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GHCR_TOKEN }}
         # 3000 -> 3000 포트로 수행하도록 지정
-        #- name: Docker run
+        - name: Docker run
           #docker stop go_cicd && docker rm go_cicd && docker rmi ${{ env.DOCKER_IMAGE }}
-          #docker ps -q --filter "name=go_cicd" | grep -q . && docker stop go_cicd && docker rm -fv go_cicd            
-          #docker run -d -p 3000:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}
-          #run:
+          #docker ps -q --filter "name=go_cicd" | grep -q . && docker stop go_cicd && docker rm -fv go_cicd                      
+          run:
+            docker run -d -p 3000:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}
             
